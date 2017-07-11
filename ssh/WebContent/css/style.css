@@ -1,0 +1,486 @@
+@CHARSET "UTF-8";
+/*
+	导入字体，实现字体变成图形
+*/
+@font-face{
+	font-family: "Raphaelicons";
+	src: url('../font/raphaelicons-webfont.woff') format('woff'),
+		 url('../font/raphaelicons-webfont.ttf') format('truetype'),
+		 url('../font/raphaelicons-webfont.eot') format('eot'),
+		 url('../font/raphaelicons-webfont.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+
+body{
+	font-family:Georgia,serif;
+	background:#ddd;
+	font-weight:400;
+	font-size:15px;
+	color:#333;
+	overflow:hidden;
+	-webkit-font-smoothing:antialiased;
+}
+
+
+/*
+	a标签设置颜色和没有下划线 
+*/
+a{
+	text-decoration: none;
+	color:#555;
+}
+
+
+/*
+	清除浮动的类.clr
+*/
+.clr{
+	width:0;
+	height:0;
+	overflow:hidden;
+	clear:both;
+	padding:0;
+	margin:0;
+}
+
+
+.st-container{
+	width:100%;
+	height:100%;
+	position: absolute;
+	left:0;
+	top:0;
+	font-family: "Josefin Slab","Myriad Pro",Arial,sans-serif;
+}
+
+
+
+
+/*
+	st-container下面的input和a上共有的样式
+*/
+.st-container > input,
+.st-container > a{
+	width:50%;
+	height:40px;
+	line-height: 40px;
+	position: fixed;
+	bottom: 0;
+	cursor: pointer;
+}
+.st-container > input{
+	opacity: 0;
+	z-index: 1000;
+}
+.st-container > a{
+	z-index: 10;
+	font-weight:700;
+	font-size:20px;
+	background: #e23a6e;
+	text-align: center;
+	color: #fff;
+	text-shadow: 1px 1px 1px rgba(151,24,64,0.2);
+}
+
+#person,#person + a{
+	left: 0%;
+}
+
+#company,#company + a{
+	left: 50%;
+}
+
+/*
+	input:checked:hover 状态为checked的input后面的a标签在hover状态时
+*/
+.st-container input:checked + a,
+.st-container input:checked:hover + a{
+	background: #821134;
+}
+
+/*
+	在checked状态的input后面的a上生成三角形
+	而且是动态生成，必须等点完之后生成（after表示在a之后）
+*/
+.st-container input:checked + a:after{
+	content:"";
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	border: 20px solid transparent;
+	border-bottom-color: #821134;
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	margin-left: -20px;
+}
+
+/*
+	鼠标滑过导航栏颜色变化
+	hover 滑过
+*/
+.st-container input:hover + a{
+	background: #AD244F;
+}
+
+
+.st-scroll,
+.st-panel{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+/*
+	实现左对齐，顶对齐
+	解决浏览器兼容
+*/
+.st-scroll{
+	left: 0;
+	top: 0;
+	-webkit-transform:translate3d(0,0,0);
+	-moz-transform:translate3d(0,0,0);
+	-o-transform:translate3d(0,0,0);
+	-ms-transform:translate3d(0,0,0);
+	transform:translate3d(0,0,0);
+	-webkit-backface-visibility:hidden;
+	-webkit-transition: all 0.6s ease-in-out;
+	-moz-transition: all 0.6s ease-in-out;
+	-o-transition: all 0.6s ease-in-out;
+	-ms-transition: all 0.6s ease-in-out;
+	transition: all 0.6s ease-in-out;
+}
+
+.st-panel{
+	background:#fff;
+	overflow:hidden;
+}
+
+/*
+	person input被选中时
+	+表示两者紧跟着，才能找到下一个元素
+	~可以跳跃代码，找下面第一个
+	
+*/
+#person:checked ~ .st-scroll{
+	-webkit-transform: translateY(0%);
+	-moz-transform: translateY(0%);
+	-o-transform: translateY(0%);
+	-ms-transform: translateY(0%);
+	transform: translateY(0%);
+}
+#company:checked ~ .st-scroll{
+	-webkit-transform: translateY(-100%);
+	-moz-transform: translateY(-100%);
+	-o-transform: translateY(-100%);
+	-ms-transform: translateY(-100%);
+	transform: translateY(-100%);
+}
+
+.st-desc{
+	width:200px;
+	height:200px;
+	background: #fa96b5;
+	position: absolute;
+	right: 50%;
+	top: 0;
+	margin-right: -100px;
+	-webkit-transform:translateY(-50%) rotate(45deg);
+	-moz-transform:translateY(-50%) rotate(45deg);
+	-o-transform:translateY(-50%) rotate(45deg);
+	-ms-transform:translateY(-50%) rotate(45deg);
+	transform:translateY(-50%) rotate(45deg); 
+}
+
+
+/*定义所有含有data-icon属性
+
+	让一个div居中，left：50% top：50%完了之后，div本身有大小
+	还需要margin调整位置
+*/
+[data-icon]:after{
+	content:attr(data-icon);
+	width:200px;
+	height:200px;
+	color: #fff;
+	font-size: 90px;
+	text-align: center;
+	line-height: 200px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: -100px 0 0 -100px;
+	-webkit-transform:rotate(-45deg) translateY(25%);
+	-moz-transform:rotate(-45deg) translateY(25%);
+	-o-transform: rotate(-45deg) translateY(25%);
+	-ms-transform: rotate(-45deg) translateY(25%);
+	transform: rotate(-45deg) translateY(25%);
+	font-family: "Raphaelicons";
+	text-shadow: 1px 1px 1px rgba(151,24,64,0.2);
+}
+
+
+.st-panel h2{
+	color: #e23a6e;
+	font-size: 54px;
+	line-height: 50px;
+	text-align: center;
+	font-weight: 900;
+	width: 80%;
+	position: absolute;
+	left: 10%;
+	top: 50%;
+	margin-top: -200px;
+	text-shadow:1px 1px 1px rgba(151,24,64,0.2);
+	-webkit-backface-visibility: hidden;
+}
+
+/*
+	需要事件触发trans
+	不需要事件触发用animation
+*/
+#person:checked ~ .st-scroll #st-panel-1 h2,
+#company:checked ~ .st-scroll #st-panel-2 h2{
+	-webkit-animation: moveDown 0.6s ease-in-out 0.2s backwards;
+	-moz-animation: moveDown 0.6s ease-in-out 0.2s backwards;
+	-o-animation: moveDown 0.6s ease-in-out 0.2s backwards;
+	-ms-animation: moveDown 0.6s ease-in-out 0.2s backwards;
+	animation: moveDown 0.6s ease-in-out 0.2s backwards;
+}
+
+@-webkit-keyframes moveDown{
+	0%{
+		-webkit-transform:translateY(-40px);
+		opacity: 0;
+	}
+	100%{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+@-moz-keyframes moveDown{
+	0%{
+		-moz-transform:translateY(-40px);
+		opacity: 0;
+	}
+	100%{
+		-moz-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+@-o-keyframes moveDown{
+	0%{
+		-o-transform:translateY(-40px);
+		opacity: 0;
+	}
+	100%{
+		-o-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+@-ms-keyframes moveDown{
+	0%{
+		-ms-transform:translateY(-40px);
+		opacity: 0;
+	}
+	100%{
+		-ms-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+@keyframes moveDown{
+	0%{
+		transform:translateY(-40px);
+		opacity: 0;
+	}
+	100%{
+		transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
+.st-panel p{
+	position: absolute;
+	width:50%;
+	left: 25%;
+	top: 50%;
+	font-size: 16px;
+	line-height: 22px;
+	padding: 0;
+	text-align: center;
+	-webkit-backface-visibility: hidden;
+	color: #8b8b8b;
+	margin-top: 10px;	
+}
+
+#person:checked ~ .st-scroll #st-panel-1 #login-panel,
+#company:checked ~ .st-scroll #st-panel-2 p{
+	-webkit-animation: moveUp 0.6s ease-in-out 0.2s backwards;
+	-moz-animation: moveUp 0.6s ease-in-out 0.2s backwards;
+	-o-animation: moveUp 0.6s ease-in-out 0.2s backwards;
+	-ms-animation: moveUp 0.6s ease-in-out 0.2s backwards;
+	animation: moveUp 0.6s ease-in-out 0.2s backwards;
+}
+
+@-webkit-keyframes moveUp{
+	0%{
+		-webkit-transform: translateY(40px);
+		opacity: 0;
+	}
+	100%{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+@-moz-keyframes moveUp{
+	0%{
+		-webkit-transform: translateY(40px);
+		opacity: 0;
+	}
+	100%{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+@-o-keyframes moveUp{
+	0%{
+		-webkit-transform: translateY(40px);
+		opacity: 0;
+	}
+	100%{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+@-ms-keyframes moveUp{
+	0%{
+		-webkit-transform: translateY(40px);
+		opacity: 0;
+	}
+	100%{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+@keyframes moveUp{
+	0%{
+		-webkit-transform: translateY(40px);
+		opacity: 0;
+	}
+	100%{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
+/*
+	section标签里的st-color类 背景色
+*/
+.st-color{
+	background: #fa96b5;
+}
+.st-color .st-desc{
+	background: #fff;
+}
+.st-color [data-icon]:after{
+	color: #fa96b5;
+}
+.st-color h2{
+	color: #fff;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.1);/* 黑色阴影*/
+}
+.st-color p{
+	color: rgba(255,255,255,0.8);
+}
+
+
+/*
+	窗口自适应处理，自动缩放
+	当屏幕分辨率为520以下时，所希望的样式
+*/
+@media screen and (max-width: 520px){
+	.st-panel h2{
+		font-size: 42px;
+	}
+	.st-panel p{
+		width: 90%;
+		left: 10%;
+		margin-top: 0;
+	}
+	.st-container > a{
+		font-size: 13px;
+	}
+}
+@media screen and (max-width: 360px){
+	.st-panel h2{
+		font-size: 30px;
+	}
+	.st-container > a{
+		font-size: 10px;
+	}
+	.st-desc{
+		width: 120px;
+		height: 120px;
+		margin-left: -60px;
+	}
+	[data-icon]:after{
+		font-size: 60px;
+		-webkit-transform:translateY(-15%) rotate(-45deg);
+		-moz-transform:translateY(-15%) rotate(-45deg);
+		-o-transform:translateY(-15%) rotate(-45deg);
+		-ms-transform:translateY(-15%) rotate(-45deg);
+		transform:translateY(-15%) rotate(-45deg); 
+	}
+}
+
+
+
+.st-login-panel{
+    margin: 250px auto 0 auto;
+    min-height: 420px;
+    max-width: 450px;
+    padding: 100px;
+    background-color: #AD244F;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 4px;
+    /* overflow-x: hidden; */
+    box-sizing: border-box;
+}
+
+
+hr.hr15 {
+    height: 15px;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+hr.hr20 {
+    height: 20px;
+    border: none;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+
+.message {
+    margin: 10px 0 0 -58px;
+    padding: 18px 10px 18px 60px;
+    background: #AD244F;
+    position: relative;
+    color: #fff;
+    font-size: 16px;
+}
+#darkbannerwrap {
+    width: 18px;
+    height: 10px;
+    margin: 0 0 20px -58px;
+    position: relative;
+}
+
+
+
+

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	<class name="cn.jxust.ssh.model.Application" table="application">
+		<id name="appli_id" column="appli_id" type="java.lang.Integer">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="appli_name" column="appli_name" length="100" type="java.lang.String"></property>
+		<property name="appli_profession" column="appli_profession" length="5" type="java.lang.String"></property>
+		<property name="appli_position" column="appli_position" length="5" type="java.lang.String"></property>
+		<property name="wanted_salary_first" column="wanted_salary_first" length="6" type="java.lang.String"></property>
+		<property name="wanted_salary_second" column="wanted_salary_second" length="6" type="java.lang.String"></property>
+		<property name="period" column="period" length="2" type="java.lang.String"></property>
+		<property name="work_place" column="work_place" length="5" type="java.lang.String"></property>
+		
+		<!-- 配置求职信息与发布用户的关联关系映射 -->
+		<many-to-one name="customer" class="cn.jxust.ssh.model.Customer" column="customer_id"></many-to-one>
+	</class>
+</hibernate-mapping>

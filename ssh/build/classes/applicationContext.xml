@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"  
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p" xmlns:util="http://www.springframework.org/schema/util" xmlns:jdbc="http://www.springframework.org/schema/jdbc"  
+    xmlns:cache="http://www.springframework.org/schema/cache"  
+    xsi:schemaLocation="  
+    http://www.springframework.org/schema/context  
+    http://www.springframework.org/schema/context/spring-context.xsd  
+    http://www.springframework.org/schema/beans  
+    http://www.springframework.org/schema/beans/spring-beans.xsd  
+    http://www.springframework.org/schema/tx  
+    http://www.springframework.org/schema/tx/spring-tx.xsd  
+    http://www.springframework.org/schema/jdbc  
+    http://www.springframework.org/schema/jdbc/spring-jdbc-3.1.xsd  
+    http://www.springframework.org/schema/cache  
+    http://www.springframework.org/schema/cache/spring-cache-3.1.xsd  
+    http://www.springframework.org/schema/aop  
+    http://www.springframework.org/schema/aop/spring-aop.xsd  
+    http://www.springframework.org/schema/util  
+    http://www.springframework.org/schema/util/spring-util.xsd">
+       
+    <!-- 引入外部的属性文件 -->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!-- 配置c3p0连接池 -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+    	<property name="driverClass" value="${jdbc.driverClass}"></property>
+    	<property name="jdbcUrl" value="${jdbc.url}"></property>
+    	<property name="user" value="${jdbc.username}"></property>
+    	<property name="password" value="${jdbc.password}"></property>
+    </bean> 
+    <!-- 配置Hibernate相关属性 -->
+    	<bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+    		<!-- 注入连接池 -->
+    		<property name="dataSource" ref="dataSource"></property>
+    		<!-- 配置Hibernate的属性 -->
+    		<property name="hibernateProperties">
+    			<props>
+    				<prop key="hibernate.dialect">org.hibernate.dialect.MySQLDialect</prop>
+    				<prop key="hibernate.show_sql">true</prop>
+    				<prop key="hibernate.format_sql">true</prop>
+    				<prop key="hibernate.hbm2ddl.auto">update</prop>
+    			</props>
+    		</property>
+    		
+    		
+    		
+    		<!-- 加载Hibernate中的映射文件(也就是自动创建表) -->
+    		<property name="mappingResources">
+    			<list>
+    				<value>cn/jxust/ssh/model/Customer.hbm.xml</value>
+    				<value>cn/jxust/ssh/model/Company.hbm.xml</value>
+    				<value>cn/jxust/ssh/model/Jobinfo.hbm.xml</value>
+    				<value>cn/jxust/ssh/model/Resume.hbm.xml</value>
+    				<value>cn/jxust/ssh/model/Middle.hbm.xml</value>
+    			</list>
+    		</property>
+    		
+    		
+    	</bean>
+    	
+    <!-- 配置Action的类 -->
+    <bean id="customerAction" class="cn.jxust.ssh.action.CustomerAction" scope="prototype">
+    	<property name="customerService" ref="customerService"></property>   
+    </bean>
+    <bean id="jobinfoAction" class="cn.jxust.ssh.action.JobinfoAction" scope="prototype">
+    	<property name="jobinfoService" ref="jobinfoService"></property>
+    	<property name="resumeService" ref="resumeService"></property>
+    	<property name="middleService" ref="middleService"></property>
+    </bean>
+    <bean id="resumeAction" class="cn.jxust.ssh.action.ResumeAction" scope="prototype">
+    	<property name="resumeService" ref="resumeService"></property>
+    	<property name="customerService" ref="customerService"></property>
+    </bean>
+    <bean id="companyAction" class="cn.jxust.ssh.action.CompanyAction" scope="prototype">
+    	<property name="companyService" ref="companyService"></property>
+    </bean>	
+    <bean id="middleAction" class="cn.jxust.ssh.action.MiddleAction" scope="prototype">
+    	<property name="middleService" ref="middleService"></property>
+    </bean>
+    <bean id="adminAction" class="cn.jxust.ssh.action.AdminAction" scope="prototype">
+    	<property name="adminService" ref="adminService"></property>
+    </bean>
+    
+    
+    <!-- 配置业务层的类 -->
+    <bean id="customerService" class="cn.jxust.ssh.service.impl.CustomerServiceImpl">
+    	<property name="customerDao" ref="customerDao"></property>
+    </bean>
+    <bean id="jobinfoService" class="cn.jxust.ssh.service.impl.JobinfoServiceImpl">
+    	<property name="jobinfoDao" ref="jobinfoDao"></property>
+    </bean>
+    <bean id="resumeService" class="cn.jxust.ssh.service.impl.ResumeServiceImpl">
+    	<property name="resumeDao" ref="resumeDao"></property>
+    </bean>
+    <bean id="companyService" class="cn.jxust.ssh.service.impl.CompanyServiceImpl">
+    	<property name="companyDao" ref="companyDao"></property>
+    </bean>
+    <bean id="middleService" class="cn.jxust.ssh.service.impl.MiddleServiceImpl">
+    	<property name="middleDao" ref="middleDao"></property>
+    </bean>
+    <bean id="adminService" class="cn.jxust.ssh.service.impl.AdminServiceImpl">
+    	<property name="adminDao" ref="adminDao"></property>
+    </bean>
+    
+    
+    <!-- 配置DAO的类 -->
+    <bean id="customerDao" class="cn.jxust.ssh.dao.impl.CustomerDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="jobinfoDao" class="cn.jxust.ssh.dao.impl.JobinfoDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+  	<bean id="resumeDao" class="cn.jxust.ssh.dao.impl.ResumeDaoImpl">
+  		<property name="sessionFactory" ref="sessionFactory"></property>
+  	</bean>
+    <bean id="companyDao" class="cn.jxust.ssh.dao.impl.CompanyDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="middleDao" class="cn.jxust.ssh.dao.impl.MiddleDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    <bean id="adminDao" class="cn.jxust.ssh.dao.impl.AdminDaoImpl">
+    	<property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+  
+    
+    
+    
+    <!-- 配置事务管理器 -->
+    <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
+    	<property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    
+    <!-- 开启注解事务 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    
+    
+</beans>

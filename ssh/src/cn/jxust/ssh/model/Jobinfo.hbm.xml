@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	<class name="cn.jxust.ssh.model.Jobinfo" table="Jobinfo">
+		<id name="jobinfo_id" column="jobinfo_id" type="java.lang.Integer">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="position" column="position" length="10" type="java.lang.String"></property>
+		<property name="salary" column="salary" length="6" type="java.lang.Integer"></property>
+		<property name="workplace" column="workplace" length="5" type="java.lang.String"></property>
+		<property name="publish_date" column="publish_date" type="java.lang.String"></property>
+		<property name="experience" column="experience" length="10" type="java.lang.String"></property>
+		<property name="education" column="education" length="5" type="java.lang.String"></property>
+		<property name="content" column="content" length="100" type="java.lang.String"></property>
+		
+		<!-- 配置求职信息与发布用户的关联关系映射 -->
+		<many-to-one name="company" class="cn.jxust.ssh.model.Company" column="company_id"></many-to-one>
+		
+	</class>
+</hibernate-mapping>

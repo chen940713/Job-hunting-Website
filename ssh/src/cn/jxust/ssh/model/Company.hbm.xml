@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	<class name="cn.jxust.ssh.model.Company" table="company">
+		<id name="company_id" column="company_id" type="java.lang.Integer">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="company_name" column="company_name" length="20" type="java.lang.String"></property>
+		<property name="company_pwd" column="company_pwd" length="20" type="java.lang.String"></property>
+		<property name="company_phone" column="company_phone" length="11" type="java.lang.Integer"></property>
+		<property name="company_address" column="company_address" length="50" type="java.lang.String"></property>
+		<property name="company_nature" column="company_nature" length="10" type="java.lang.String"></property>
+		<property name="company_scale" column="company_scale" length="10" type="java.lang.String"></property>
+		<property name="company_industry" column="company_industry" length="10" type="java.lang.String"></property>
+		<property name="company_introduce" column="company_introduce" length="300" type="java.lang.String"></property>
+		<property name="company_welfare" column="company_welfare" length="200" type="java.lang.String"></property>
+		
+		<!-- 关联关系映射 -->
+		<set name="jobinfo" cascade="save-update" inverse="true">
+			<key column="company_id"></key>
+			<one-to-many class="cn.jxust.ssh.model.Jobinfo"/>
+		</set>
+	</class>
+</hibernate-mapping>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+	<class name="cn.jxust.ssh.model.Resume" table="resume">
+		<id name="resume_id" column="resume_id" type="java.lang.Integer">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="person_name" column="person_name" length="5" type="java.lang.String"></property>
+		<property name="person_sex" column="person_sex" length="1" type="java.lang.String"></property>
+		<property name="person_address" column="person_address" length="30" type="java.lang.String"></property>
+		<property name="pro_and_hobby" column="pro_and_hobby" length="20" type="java.lang.String"></property>
+		<property name="cellphone" column="cellphone" length="20" type="java.lang.String"></property>
+		<property name="person_email" column="person_email" length="20" type="java.lang.String"></property>
+		<property name="introduce_and_evaluate" column="introduce_and_evaluate" length="200" type="java.lang.String"></property>
+		<property name="graduation" column="graduation" length="10" type="java.lang.String"></property>
+		<property name="experience_date1" column="experience_date1" length="10" type="java.lang.String"></property>
+		<property name="experience_content1" column="experience_content1" length="100" type="java.lang.String"></property>
+		<property name="experience_title1" column="experience_title1" length="30" type="java.lang.String"></property>
+		<property name="experience_date2" column="experience_date2" length="10" type="java.lang.String"></property>
+		<property name="experience_title2" column="experience_title2" length="30" type="java.lang.String"></property>
+		<property name="experience_content2" column="experience_content2" length="100" type="java.lang.String"></property>
+		<property name="experience_date3" column="experience_date3" length="10" type="java.lang.String"></property>
+		<property name="experience_title3" column="experience_title3" length="30" type="java.lang.String"></property>
+		<property name="experience_content3" column="experience_content3" length="100" type="java.lang.String"></property>
+		<property name="about_skill1" column="about_skill1" length="1" type="java.lang.Integer"></property>
+		<property name="about_skill2" column="about_skill2" length="1" type="java.lang.Integer"></property>
+		<property name="about_skill3" column="about_skill3" length="1" type="java.lang.Integer"></property>
+		<property name="about_skill4" column="about_skill4" length="1" type="java.lang.Integer"></property>
+	
+		<many-to-one name="customer" class="cn.jxust.ssh.model.Customer" column="customer_id"></many-to-one>
+	</class>
+</hibernate-mapping>   

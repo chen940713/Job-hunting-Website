@@ -1,0 +1,415 @@
+@CHARSET "UTF-8";
+@font-face{
+	font-family: "Raphaelicons";
+	src: url('../font/raphaelicons-webfont.woff') format('woff'),
+		 url('../font/raphaelicons-webfont.ttf') format('truetype'),
+		 url('../font/raphaelicons-webfont.eot') format('eot'),
+		 url('../font/raphaelicons-webfont.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+body{
+	font-family:Georgia,serif;
+	background:#ddd;
+	font-weight:400;
+	font-size:15px;
+	color:#333;
+	overflow:hidden;
+	-webkit-font-smoothing:antialiased;
+}
+
+a{
+	text-decoration: none;
+	color:#555;
+}
+
+/*
+	清除浮动的类.clr
+*/
+.clr{
+	width:0;
+	height:0;
+	overflow:hidden;
+	clear:both;
+	padding:0;
+	margin:0;
+}
+
+.st-container{
+	width:100%;
+	height:100%;
+	position: absolute;
+	left:0;
+	top:0;
+	font-family: "Josefin Slab","Myriad Pro",Arial,sans-serif;
+}
+
+/*
+	st-container下面的input和a上共有的样式
+*/
+.st-container > input,
+.st-container > a{
+	width:30px;
+	height:200px;
+	line-height: 40px;
+	position: fixed;
+	left: 0;
+	cursor: pointer;
+}
+.st-container > input{
+	opacity: 0;
+	z-index: 1000;
+}
+.st-container > a{
+	z-index: 10;
+	font-weight:700;
+	font-size:20px;
+	background: #e23a6e;
+	text-align: center;
+	color: #fff;
+	text-shadow: 1px 1px 1px rgba(151,24,64,0.2);
+}
+
+#person,#person + a{
+	left: 0%;
+	top:200px;
+}
+
+#company,#company + a{
+	left: 0%;
+	top: 50%;
+}
+#updateResume,#updateResume + a{
+	left: 0%;
+	top: 75%;
+}
+
+/*
+	input:checked:hover 状态为checked的input后面的a标签在hover状态时
+*/
+.st-container input:checked + a,
+.st-container input:checked:hover + a{
+	background: #821134;
+}
+
+/*
+	在checked状态的input后面的a上生成三角形
+	而且是动态生成，必须等点完之后生成（after）
+*/
+.st-container input:checked + a:after{
+	content:"";
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	border: 20px solid transparent;
+	border-bottom-color: #821134;
+	position: absolute;
+	bottom: 100%;
+	top: 43%;
+	margin-left: -20px;
+}
+
+/*
+	鼠标滑过导航栏颜色变化
+	hover 滑过
+*/
+.st-container input:hover + a{
+	background: #AD244F;
+}
+
+
+.st-scroll,
+.st-panel{
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+/*
+	实现左对齐，顶对齐
+	解决浏览器兼容
+*/
+.st-scroll{
+	left: 0;
+	top: 0;
+	-webkit-transform:translate3d(0,0,0);
+	-moz-transform:translate3d(0,0,0);
+	-o-transform:translate3d(0,0,0);
+	-ms-transform:translate3d(0,0,0);
+	transform:translate3d(0,0,0);
+	-webkit-backface-visibility:hidden;
+	-webkit-transition: all 0.6s ease-in-out;
+	-moz-transition: all 0.6s ease-in-out;
+	-o-transition: all 0.6s ease-in-out;
+	-ms-transition: all 0.6s ease-in-out;
+	transition: all 0.6s ease-in-out;
+}
+
+.st-panel{
+	background:#fff;
+	overflow:hidden;
+}
+
+/*
+	person input被选中时
+	+表示两者紧跟着，才能找到下一个元素
+	~可以跳跃代码，找下面第一个
+	
+*/
+#person:checked ~ .st-scroll{
+	-webkit-transform: translateY(0%);
+	-moz-transform: translateY(0%);
+	-o-transform: translateY(0%);
+	-ms-transform: translateY(0%);
+	transform: translateY(0%);
+}
+#company:checked ~ .st-scroll{
+	-webkit-transform: translateY(-100%);
+	-moz-transform: translateY(-100%);
+	-o-transform: translateY(-100%);
+	-ms-transform: translateY(-100%);
+	transform: translateY(-100%);
+}
+#updateResume:checked ~ .st-scroll{
+	-webkit-transform: translateY(-200%);
+	-moz-transform: translateY(-200%);
+	-o-transform: translateY(-200%);
+	-ms-transform: translateY(-200%);
+	transform: translateY(-200%);
+}
+
+.st-desc{
+	width:200px;
+	height:200px;
+	background: #fa96b5;
+	position: absolute;
+	right: 50%;
+	top: 0;
+	margin-right: -100px;
+	-webkit-transform:translateY(-50%) rotate(45deg);
+	-moz-transform:translateY(-50%) rotate(45deg);
+	-o-transform:translateY(-50%) rotate(45deg);
+	-ms-transform:translateY(-50%) rotate(45deg);
+	transform:translateY(-50%) rotate(45deg); 
+}
+
+
+/*
+	让一个div居中，left：50% top：50%完了之后，div本身有大小
+	还需要margin调整位置
+*/
+[data-icon]:after{
+	content:attr(data-icon);
+	width:200px;
+	height:200px;
+	color: #fff;
+	font-size: 90px;
+	text-align: center;
+	line-height: 200px;
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	margin: -100px 0 0 -100px;
+	-webkit-transform:rotate(-45deg) translateY(25%);
+	-moz-transform:rotate(-45deg) translateY(25%);
+	-o-transform: rotate(-45deg) translateY(25%);
+	-ms-transform: rotate(-45deg) translateY(25%);
+	transform: rotate(-45deg) translateY(25%);
+	font-family: "Raphaelicons";
+	text-shadow: 1px 1px 1px rgba(151,24,64,0.2);
+}
+
+
+.st-panel .title{
+	color: #e23a6e;
+	font-size: 40px;
+	line-height: 50px;
+	
+	font-weight: 900;
+	width: 80%;
+	position: absolute;
+	left: 15%;
+	top: 35%;
+	margin-top: -200px;
+	text-shadow:1px 1px 1px rgba(151,24,64,0.2);
+	-webkit-backface-visibility: hidden;
+}
+
+/*
+	需要事件触发trans
+	不需要事件触发用animation
+*/
+#person:checked ~ .st-scroll #st-panel-1 .title,
+#person:checked ~ .st-scroll #st-panel-1 .tables,
+#person:checked ~ .st-scroll #st-panel-1 .st-frame,
+#company:checked ~ .st-scroll #st-panel-2 .title
+#updateResume:checked ~ .st-scroll #st-panel-3 .title{
+	-webkit-animation: moveDown 0.45s ease-in-out 0.2s backwards;
+	-moz-animation: moveDown 0.45s ease-in-out 0.2s backwards;
+	-o-animation: moveDown 0.45s ease-in-out 0.2s backwards;
+	-ms-animation: moveDown 0.45s ease-in-out 0.2s backwards;
+	animation: moveDown 0.45s ease-in-out 0.2s backwards;
+}
+
+@-webkit-keyframes moveDown{
+	0%{
+		-webkit-transform:translateY(-40px);
+		opacity: 0;
+	}
+	100%{
+		-webkit-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+@-moz-keyframes moveDown{
+	0%{
+		-moz-transform:translateY(-40px);
+		opacity: 0;
+	}
+	100%{
+		-moz-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+@-o-keyframes moveDown{
+	0%{
+		-o-transform:translateY(-40px);
+		opacity: 0;
+	}
+	100%{
+		-o-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+@-ms-keyframes moveDown{
+	0%{
+		-ms-transform:translateY(-40px);
+		opacity: 0;
+	}
+	100%{
+		-ms-transform: translateY(0px);
+		opacity: 1;
+	}
+}
+@keyframes moveDown{
+	0%{
+		transform:translateY(-40px);
+		opacity: 0;
+	}
+	100%{
+		transform: translateY(0px);
+		opacity: 1;
+	}
+}
+
+.st-frame{
+	
+	width: 70%;
+	height: 60;
+	position: absolute;
+	top:20%;
+	left: 15%;
+}
+
+
+/*
+	下拉列表样式
+*/
+.province,
+.profession{
+	font-size: 16px;
+	width: 320px;
+	height: 42px;
+	background: #C00;
+	position: relative;
+	float: left;
+}
+.province strong,
+.profession strong{
+	width: 95px;
+	height: 42px;
+	line-height: 42px;
+	display: block;
+	float: left;
+	color: #fff;
+	padding-left: 10px;
+}
+#selectProvince,
+#selectPro{
+	width: 200px;
+	height: 23px;
+	display: block;
+	float: left; 
+	background: #ffffff;
+	margin-top: 6px; 
+	padding-left: 8px;
+	padding-top: 7px;
+	color: #CCC;
+	cursor: pointer;
+}
+#allProvince,
+#allPro{
+	width: 308px;
+	height: auto;
+	line-height: 30px;
+	padding-left: 10px; 
+	clear: both; 
+	position: absolute; 
+	list-style: none;
+	top: 42px;
+	left: 0px;
+	background: #FFF;
+	border: 1px solid #DFDFDF;
+	border-top: none;
+	display: none;
+	z-index: 101;
+}
+#allProvince li,
+#allPro li{
+	height: 30px;
+	border-bottom: 1px solid #DFDFDF;
+}
+#allProvince li b,
+#allPro li b{
+	width:40px;
+	font-weight: bold;
+	display: inline-block;
+	text-align: center;
+}
+#allProvince li span,
+#allPro li span{
+	padding-right: 15px;
+	cursor: pointer;
+}
+#allProvince li span:hover,
+#allPro li span:hover{
+	color: #C00;
+}
+#layer{
+	width:100%;
+	height: 100%;
+	background: #333;
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: 100;
+	filter: alpha(opacity=0);
+	opacity: 0;
+	display: none;
+}
+
+.chaxun{
+	width: 80px;
+	background: #27AE60;
+	font-weight: bold;
+	color: white;
+	border: 0 none;
+	border-radius: 1px;
+	cursor: pointer;
+	padding: 12px 5px;
+	margin: 0px 5px;
+}
+
+
+
+
+

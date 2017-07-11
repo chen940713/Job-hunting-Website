@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	
+	<package name="ssh" extends="struts-default" namespace="/">
+		<action name="customer_*" class="customerAction" method="{1}">
+			<result name="input">/index.jsp</result>
+			<result name="success" type="redirectAction">jobinfo_findAll</result>
+			<result name="registerSuccess">/index.jsp</result>
+			<result name="customerLogout">/index.jsp</result>
+			<result name="index" type="redirectAction">/jobinfo_index</result>
+			<result name="toIndex">/index.jsp</result>
+			
+		</action>
+		
+		<action name="jobinfo_*" class="jobinfoAction" method="{1}">
+			<result name="findAll">/customer.jsp</result>
+			<result name="findByCompanySuccess">/company.jsp</result>
+			<result name="findAllPage">/customer.jsp</result>
+			<result name="findAllByAdmin">/admin.jsp</result>
+			<result name="findByAdmin">/admin.jsp</result>
+			<result name="deleteSuccess" type="redirectAction">jobinfo_findByCompany</result>
+			<result name="adminDeleteSuccess" type="redirectAction">jobinfo_findAllByAdmin</result>
+			<result name="addSuccess" type="redirectAction">jobinfo_findByCompany</result>
+			<result name="showdetail">/showdetails.jsp</result>
+			<result name="findByCustomerSuccess">/jobdetail.jsp</result>
+			<result name="findJobByAdmin">/job.jsp</result>
+			<result name="index">/first.jsp</result>
+			<result name="findIndex">/first.jsp</result>
+			<result name="findByIndex">/jobindex.jsp</result>
+			<result name="jobinfoupdate" type="redirectAction">jobinfo_findByCompany</result>
+			
+		</action>
+		
+		<action name="resume_*" class="resumeAction" method="{1}">
+			<result name="saveResume" type="redirect">/customer.jsp</result>
+			<result name="editSuccess" type="redirect">customer.jsp#st-panel-2</result>
+			<result name="showSuccess" type="redirect">/resumeex.jsp</result>
+			<result name="showResumeSuccess" type="redirect">/resumeex.jsp</result>
+			<result name="findAll">/admin.jsp</result>
+		</action>
+		
+		<action name="company_*" class="companyAction" method="{1}">
+			<result name="input" type="redirect">/index.jsp#st-panel-2</result>
+			<result name="success" type="redirectAction">jobinfo_findByCompany</result>
+			<result name="companyRegister" type="redirect">/index.jsp#st-panel-2</result>
+			<result name="companyLogout">/index.jsp</result>
+		</action>
+		
+		<action name="middle_*" class="middleAction" method="{1}">
+			<result name="addSuccess" type="redirectAction">jobinfo_findAll</result>
+		</action>
+		
+		<action name="admin_*" class="adminAction" method="{1}">
+			<result name="adminLoginSuccess" type="redirectAction">jobinfo_findAllByAdmin</result>
+			<result name="adminLogout">/index.jsp</result>
+		</action>
+	</package>
+	
+	<!-- <package name="json" extends="json-default">
+		<action name="customer_login" class="customerAction">
+			<result name="success" type="json"></result>
+			
+		</action>
+	
+	</package> -->
+	
+   
+	<constant name="struts.i18n.encoding" value="UTF-8"></constant>
+</struts>

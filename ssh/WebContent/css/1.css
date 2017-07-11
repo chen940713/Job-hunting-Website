@@ -1,0 +1,167 @@
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "微软雅黑";
+    list-style: none;
+    font-size: 14px;
+}
+
+body{
+    background:#F5F5F5;
+}
+.wrap{
+    width: 800px;
+    margin: 0 auto;
+    border:1px solid #E8E8E8;
+}
+.title{
+    width: 780px;
+    margin:0 auto;
+    padding: 10px;
+    height: 140px;
+    background:#5ca5db;
+    border: 1px solid #E8E8E8;
+    border-radius: 5px;
+}
+.title h2{
+    display: inline-block;
+    margin:10px;
+    color: #fff;
+    font-size: 50px;
+    font-weight: normal;
+}
+.title span{
+    display: block;
+    padding-left:20px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+.title p{
+    color: #fff;
+    padding-left: 20px;
+}
+.topic{
+    float: left;
+}
+.contacts{
+    float: right;
+    margin-right: 10px;
+    margin-top: 40px;
+}
+.contacts li{
+    color: #fff;
+    text-align: right;
+}
+.contacts li a{
+    text-decoration: none;
+    color: #fff;
+}
+.contacts li a:hover{
+    text-decoration: underline;
+}
+.mainbody{
+    background: #fff;
+}
+.profile h3{
+    font-size: 30px;
+    color: #787a86;
+    font-weight: bold;
+    padding:20px 0 5px 15px;
+}
+.profile p{
+    width: 780px;
+    padding: 10px;
+    text-indent: 2em;
+    font-size: 14px;
+    color:#787a86;
+}
+.experience{
+    height: 570px;
+    overflow: hidden;
+
+}
+.experience h3{
+    font-size: 30px;
+    color: #787a86;
+    font-weight: bold;
+    padding:10px 0 5px 15px;
+}
+.timeline{
+    float: left;
+    padding: 10px 0 20px 20px;
+}
+.timeline_left{
+    float: left;
+    height: 500px;
+}
+.timeline_left img{
+    height: 500px;
+}
+.timeline_right{
+    float: left;
+    margin-left: 20px;
+}
+.timeline_right span{
+    display: block;
+    color:#787a86;
+}
+.content{
+    width: 580px;
+    float: left;
+    margin-left: 10px;
+}
+.jobExperience {
+    margin-bottom: 30px;
+}
+.content h3{
+    font-size: 16px;
+}
+.jobExperience p{
+    color: #787a86;
+    padding-left: 15px;
+    text-indent: 2em;
+    margin-bottom: 5px;
+}
+
+.education p{
+    color: #787a86;
+    padding-left: 15px;
+    text-indent: 2em;
+    margin-bottom: 5px;
+}
+.footer{
+    background: #fff;
+    height: 270px;
+}
+.skill{
+    color: #787a86;
+    padding-top: 20px;
+}
+.skill h3{
+    font-size: 30px;
+    color: #787a86;
+    font-weight: bold;
+    padding:10px 0 5px 15px;
+}
+.skill_box li{
+    margin-top: 10px;
+    margin-left: 30px;
+    float: left;
+    width: 45%;
+}
+.skill_left{
+    float: left;
+    width: 80px;
+}
+.skill_right{
+    float: left;
+}
+.skill_right img{
+    margin-left: 5px;
+    margin-top: 3px;
+}
+.backTop{
+    position: fixed;
+    bottom: 20px;
+    right: 200px;
+}

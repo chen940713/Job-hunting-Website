@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+	<class name="cn.jxust.ssh.model.Customer" table="customer">
+		<id name="customer_id" column="customer_id" type="java.lang.Integer">
+			<generator class="native"></generator>
+		</id>
+		
+		<property name="customer_name" column="customer_name" length="20" type="java.lang.String"></property>
+		<property name="customer_pwd" column="customer_pwd" length="20" type="java.lang.String"></property>
+		
+		<set name="resumes" cascade="save-update" inverse="true">
+			<key column="customer_id"></key>
+			<one-to-many class="cn.jxust.ssh.model.Resume"/>
+		</set>
+	</class>
+</hibernate-mapping>
